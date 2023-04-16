@@ -5,6 +5,47 @@ import styles from "./App.module.css";
 import { Post } from "./components/Post";
 import { Sidebar } from "./components/Sidebar";
 
+const posts = [
+  {
+    id: 0,
+    author: {
+      avatarUrl: "https://github.com/Jairotsb.png",
+      name: "Jairo Tunisse",
+      role: "Desenvolvedor full stack",
+    },
+    content: [
+      { type: "paragraph", content: "bem-vindo(a) ao meu projeto incrível! " },
+      {
+        type: "paragraph",
+        content: "olá, esse aqui é meu projeto",
+      },
+
+      { type: "link", content: "jairotunisse.dev" },
+    ],
+
+    publishedAt: new Date("2023-04-12 23:29"),
+  },
+
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/diego3g.png",
+      name: "Diego Fernandes",
+      role: "CTO Rocketseat",
+    },
+    content: [
+      { type: "paragraph", content: "bem-vindo(a) ao meu projeto incrível! " },
+      {
+        type: "paragraph",
+        content: "olá, esse aqui é meu projeto",
+      },
+      { type: "link", content: "jairotunisse.dev" },
+    ],
+
+    publishedAt: new Date("2023-04-29 23:29"),
+  },
+];
+
 function App() {
   return (
     <div className="App">
@@ -13,8 +54,16 @@ function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <Post />
-          <Post />
+          {posts.map((post) => (
+            <Post
+              key={post.id}
+              author={post.author.name}
+              content={post.content}
+              publishedAt={post.publishedAt}
+              avatarUrl={post.author.avatarUrl}
+              role={post.author.role}
+            />
+          ))}
         </main>
       </div>
     </div>

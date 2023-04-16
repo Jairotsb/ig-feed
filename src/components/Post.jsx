@@ -2,25 +2,25 @@ import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
 
-export function Post() {
+export function Post(props) {
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/Jairotsb.png"/>
+          <Avatar src={props.avatarUrl}/>
           <div className={styles.authorInfo}>
-            <strong>Jairo Tunisse</strong>
-            <span>Full Stack Developer</span>
+            <strong>{props.author}</strong>
+            <span>{props.role}</span>
           </div>
         </div>
 
-        <time title="10 de abril ás 22:20" dateTime="2023-04-10 22:19:00">
-          Publicado há 1 hora
+        <time title="10 de abril ás 22:20" dateTime={props.publishedAt}>
+          Publica há mais ou menos duas horas
         </time>
       </header>
 
       <div className={styles.content}>
-        <p> bem-vindo(a) ao meu projeto incrível! </p>
+        <p>{props.content}</p>
 
         <p>
           Nosso objetivo principal é [insira aqui o objetivo principal do
