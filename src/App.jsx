@@ -57,11 +57,7 @@ function App() {
           {posts.map((post) => (
             <Post
               key={post.id}
-              author={post.author.name}
-              content={post.content}
-              publishedAt={post.publishedAt}
-              avatarUrl={post.author.avatarUrl}
-              role={post.author.role}
+              author={post.author}
             />
           ))}
         </main>
