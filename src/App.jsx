@@ -42,7 +42,7 @@ const posts = [
       { type: "link", content: "jairotunisse.dev" },
     ],
 
-    publishedAt: new Date("2023-04-29 23:29"),
+    publishedAt: new Date("2023-04-17 19:34:40"),
   },
 ];
 
@@ -58,6 +58,8 @@ function App() {
             <Post
               key={post.id}
               author={post.author}
+              publishedAt={post.publishedAt}
+              content={post.content}
             />
           ))}
         </main>
