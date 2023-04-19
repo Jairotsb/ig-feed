@@ -34,6 +34,16 @@ export function Post({ author, publishedAt, content }) {
     setNewCommentText(event.target.value);
   }
 
+  function deleteComment(commentToDelete) {
+    //imutabilidade -> as variaveis não sofrem mutação -> criamos um novo valor, um novo espaço na memória.
+    // Assim o react consegue analisar o que mudou e o que não. 
+
+    const commentsWithoutDeleteOne = comments.filter(comment => {
+      return comment !== commentToDelete;
+    })
+      setComment(commentsWithoutDeleteOne);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -82,9 +92,10 @@ export function Post({ author, publishedAt, content }) {
       </form>
       <div className={styles.commentList}>
         {comments.map((comment) => (
-          <Comment 
-          key={comment}
-          content={comment} 
+          <Comment
+            onDeleteComment={deleteComment}
+            key={comment}
+            content={comment}
           />
         ))}
       </div>
