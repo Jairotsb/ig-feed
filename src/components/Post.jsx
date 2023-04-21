@@ -31,18 +31,25 @@ export function Post({ author, publishedAt, content }) {
   }
 
   function handleCreateNewCommentChange() {
+    event.target.setCustomValidity("");
     setNewCommentText(event.target.value);
   }
 
   function deleteComment(commentToDelete) {
     //imutabilidade -> as variaveis não sofrem mutação -> criamos um novo valor, um novo espaço na memória.
-    // Assim o react consegue analisar o que mudou e o que não. 
+    // Assim o react consegue analisar o que mudou e o que não.
 
-    const commentsWithoutDeleteOne = comments.filter(comment => {
+    const commentsWithoutDeleteOne = comments.filter((comment) => {
       return comment !== commentToDelete;
-    })
-      setComment(commentsWithoutDeleteOne);
+    });
+    setComment(commentsWithoutDeleteOne);
   }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity("Esse campo é obrigatório.");
+  }
+
+  const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -85,9 +92,11 @@ export function Post({ author, publishedAt, content }) {
           placeholder="Deixe um comentário"
           value={newCommentText}
           onChange={handleCreateNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
         </footer>
       </form>
       <div className={styles.commentList}>
