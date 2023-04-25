@@ -3,9 +3,27 @@ import ptBR from "date-fns/locale/pt-BR";
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 
-export function Post({ author, publishedAt, content }) {
+interface Author {
+  name:string; 
+  role: string; 
+  avatarUrl: string; 
+}
+
+interface ContentProps {
+  type: 'paragraph' | 'link'; 
+  content: string; 
+}
+
+interface PostProps {
+  author: Author;
+  publishedAt: Date;
+  content: ContentProps[];
+}
+
+
+export function Post({ author, publishedAt, content }: PostProps) {
   const publishedDateFormatted = format(
     publishedAt,
     "d 'de' LLLL 'ás' HH:mm'h'",
@@ -23,19 +41,19 @@ export function Post({ author, publishedAt, content }) {
 
   const [newCommentText, setNewCommentText] = useState("");
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
     setComment([...comments, newCommentText]);
 
     setNewCommentText("");
   }
 
-  function handleCreateNewCommentChange() {
+  function handleCreateNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("");
     setNewCommentText(event.target.value);
   }
 
-  function deleteComment(commentToDelete) {
+  function deleteComment(commentToDelete: string) {
     //imutabilidade -> as variaveis não sofrem mutação -> criamos um novo valor, um novo espaço na memória.
     // Assim o react consegue analisar o que mudou e o que não.
 
@@ -45,7 +63,7 @@ export function Post({ author, publishedAt, content }) {
     setComment(commentsWithoutDeleteOne);
   }
 
-  function handleNewCommentInvalid() {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("Esse campo é obrigatório.");
   }
 
